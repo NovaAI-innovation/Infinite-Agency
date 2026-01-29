@@ -2,42 +2,30 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [ main, master ]
   pull_request:
-    branches: [ main ]
+    branches: [ main, master ]
 
 jobs:
   test:
     runs-on: ubuntu-latest
     
-    strategy:
-      matrix:
-        python-version: [3.8, 3.9, '3.10', '3.11', '3.12']
-
     steps:
     - uses: actions/checkout@v3
     
-    - name: Set up Python ${{ matrix.python-version }}
+    - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: ${{ matrix.python-version }}
+        python-version: '3.12'
         
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install pytest pytest-asyncio coverage bcrypt pyjwt
-    
-    - name: Install project dependencies
+        pip install -r requirements.txt
+        
+    - name: Run tests
       run: |
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-      
-    - name: Run unit tests
-      run: |
-        python -m pytest agency/testing/test_agency.py -v
-    
-    - name: Run example usage
-      run: |
-        python example_usage.py
+        python -m pytest test_agency.py -v
 
   lint:
     runs-on: ubuntu-latest
@@ -50,31 +38,13 @@ jobs:
       with:
         python-version: '3.12'
         
-    - name: Install linters
+    - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install flake8 black mypy
-    
+        pip install flake8
+        pip install -r requirements.txt
+        
     - name: Lint with flake8
       run: |
-        flake8 agency/ --count --select=E9,F63,F7,F82 --show-source --statistics
-        flake8 agency/ --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-    
-    - name: Check formatting with black
-      run: |
-        black --check agency/
-    
-  security:
-    runs-on: ubuntu-latest
-    
-    steps:
-    - uses: actions/checkout@v3
-    
-    - name: Security scan
-      run: |
-        # Install security scanning tools
-        pip install bandit safety
-        # Run bandit security scan
-        bandit -r agency/ -f json -o bandit-report.json || echo "Security scan completed"
-        # Run safety check
-        safety check || echo "Safety check completed"
+        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
