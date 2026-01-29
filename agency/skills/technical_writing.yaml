@@ -1,0 +1,39 @@
+name: "technical_writing"
+description: "Skills for technical writing including documentation best practices and style guidelines"
+version: "1.0.0"
+domain_type: "documentation"
+capabilities:
+  - "technical_documentation"
+  - "api_documentation"
+  - "readme_creation"
+  - "user_guides"
+knowledge_base:
+  best_practices:
+    - "Use clear and concise language"
+    - "Provide examples for complex concepts"
+    - "Structure content logically with headings"
+    - "Include prerequisites and setup instructions"
+  documentation_types:
+    - "README: Project overview and getting started"
+    - "API Docs: Reference for functions and classes"
+    - "User Guides: Step-by-step tutorials"
+    - "Architecture Docs: System design and components"
+  style_guidelines:
+    - "Use active voice"
+    - "Be consistent with terminology"
+    - "Include visual aids when helpful"
+    - "Keep paragraphs short and focused"
+behaviors:
+  writing_style: "clear_and_concise"
+  audience_level: "intermediate"
+  format_preference: "markdown"
+dependencies: []
+parameters:
+  default_format: "markdown"
+  include_examples: true
+  toc_generation: true
+examples:
+  - query: "create a README for a Python project"
+    expected_output: "Well-structured README with sections for installation, usage, and examples"
+  - query: "generate API documentation for a function"
+    expected_output: "Clear API documentation with parameters and return values explained"

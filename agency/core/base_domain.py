@@ -40,6 +40,9 @@ class BaseDomain(ABC):
         self.dependents = []
         self.resource_manager = resource_manager
         self.cache_enabled = cache_enabled
+        self.capabilities = []
+        self.knowledge_base = {}
+        self.behaviors = {}
 
         # Import cache here to avoid circular imports
         from .caching import get_domain_cache
@@ -94,3 +97,28 @@ class BaseDomain(ABC):
     def get_capability_description(self) -> str:
         """Get a description of what this domain can do"""
         return f"{self.name}: {self.description}"
+
+    def add_capability(self, capability: str):
+        """Add a capability to this domain"""
+        if capability not in self.capabilities:
+            self.capabilities.append(capability)
+
+    def has_capability(self, capability: str) -> bool:
+        """Check if this domain has a specific capability"""
+        return capability in self.capabilities
+
+    def update_knowledge_base(self, knowledge: Dict[str, Any]):
+        """Update the domain's knowledge base"""
+        self.knowledge_base.update(knowledge)
+
+    def get_knowledge(self, key: str, default: Any = None):
+        """Get a specific piece of knowledge from the knowledge base"""
+        return self.knowledge_base.get(key, default)
+
+    def set_behavior(self, behavior_name: str, behavior_config: Any):
+        """Set a behavior configuration for this domain"""
+        self.behaviors[behavior_name] = behavior_config
+
+    def get_behavior(self, behavior_name: str, default: Any = None):
+        """Get a behavior configuration"""
+        return self.behaviors.get(behavior_name, default)

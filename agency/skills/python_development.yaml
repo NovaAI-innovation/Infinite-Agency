@@ -1,0 +1,39 @@
+name: "python_development"
+description: "Skills for Python development including best practices, common patterns, and standard libraries"
+version: "1.0.0"
+domain_type: "code_generation"
+capabilities:
+  - "python_code_generation"
+  - "python_best_practices"
+  - "python_standard_library"
+  - "python_testing"
+knowledge_base:
+  common_patterns:
+    - "Use list comprehensions for simple iterations"
+    - "Follow PEP 8 style guidelines"
+    - "Use f-strings for string formatting"
+    - "Implement proper error handling with try/except"
+  standard_libraries:
+    - "os: Operating system interfaces"
+    - "sys: System-specific parameters and functions"
+    - "json: JSON encoder and decoder"
+    - "datetime: Basic date and time types"
+    - "collections: Container datatypes"
+  testing_frameworks:
+    - "unittest: Built-in unit testing framework"
+    - "pytest: Popular third-party testing framework"
+    - "mock: Mocking framework for testing"
+behaviors:
+  code_style: "pep8_compliant"
+  naming_convention: "snake_case"
+  documentation_style: "google_style"
+dependencies: []
+parameters:
+  default_indentation: 4
+  use_type_hints: true
+  max_line_length: 88
+examples:
+  - query: "generate a python function to calculate fibonacci numbers"
+    expected_output: "A function using best practices with proper documentation"
+  - query: "create a python class for managing user data"
+    expected_output: "A class following Python conventions with appropriate methods"

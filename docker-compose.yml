@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  agency-core:
+    build: .
+    container_name: agency-core
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+      - agency-skills:/app/skills
+      - agency-data:/app/data
+    environment:
+      - PYTHONPATH=/app
+      - AGENCY_CACHE_ENABLED=true
+      - AGENCY_RESOURCE_QUOTA_CPU=80.0
+      - AGENCY_RESOURCE_QUOTA_MEMORY=1024
+      - AGENCY_MAX_CONCURRENT_TASKS=20
+    restart: unless-stopped
+    networks:
+      - agency-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: agency-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - agency-redis-data:/data
+    command: redis-server --appendonly yes
+    restart: unless-stopped
+    networks:
+      - agency-network
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: agency-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: agency_db
+      POSTGRES_USER: agency_user
+      POSTGRES_PASSWORD: agency_pass
+    volumes:
+      - agency-postgres-data:/var/lib/postgresql/data
+    restart: unless-stopped
+    networks:
+      - agency-network
+
+volumes:
+  agency-skills:
+  agency-data:
+  agency-redis-data:
+  agency-postgres-data:
+
+networks:
+  agency-network:
+    driver: bridge
