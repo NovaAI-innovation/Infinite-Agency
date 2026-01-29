@@ -1,8 +1,5 @@
-# Core dependencies
-asyncio
-typing
-enum
-dataclasses
+# Core dependencies (standard library modules removed - no need to install)
+# asyncio, typing, enum, dataclasses are part of Python standard library
 
 # External dependencies
 bcrypt>=4.0.0
