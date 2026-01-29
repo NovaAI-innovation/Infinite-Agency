@@ -81,7 +81,7 @@ class TransientErrorHandler(ErrorHandler):
             return False
         
         # Check if this error type should be retried
-        should_retry = self._should_retry_error(error_info.exception)
+        should_retry = self._should_retry_error(error_info)
         if not should_retry:
             self._logger.info(f"Not retrying non-retryable error: {type(error_info.exception).__name__}")
             return False
@@ -95,18 +95,19 @@ class TransientErrorHandler(ErrorHandler):
         
         return True
     
-    def _should_retry_error(self, exception: Exception) -> bool:
+    def _should_retry_error(self, error_info: ErrorInfo) -> bool:
         """Determine if an error should be retried"""
+        exception = error_info.exception
         exc_type = type(exception)
-        
+
         # Check non-retryable errors first (higher priority)
         if any(isinstance(exception, err_type) for err_type in self.policy.non_retryable_errors):
             return False
-        
+
         # Check retryable errors
         if any(isinstance(exception, err_type) for err_type in self.policy.retryable_errors):
             return True
-        
+
         # Default behavior based on error category
         return error_info.category in [ErrorCategory.TRANSIENT, ErrorCategory.COMMUNICATION]
     
