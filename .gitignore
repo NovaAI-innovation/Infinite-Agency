@@ -47,14 +47,10 @@ tmp/
 # Skill directories that are not part of the core project
 .claude/
 .gemini/
-.qwen/
 
 # Configuration that might contain secrets
 .env
 .config/
-
-# qwen-code-cli settings
-.qwen/
 
 # GitHub App credentials
 gha-creds-*.json

@@ -123,129 +123,133 @@ class FrontendDomain(BaseDomain):
         
         if framework == "react":
             if styling_lib == "css":
-                return f"""import React, {{ useState }} from 'react';
-import './{component_name}.css';
+                template = """import React, { useState } from 'react';
+import './COMPONENT_NAME.css';
 
 /**
- * {component_name} Component
- * Description: {query}
+ * COMPONENT_NAME Component
+ * Description: QUERY
  */
-const {component_name} = ({{ children, className = '', ...props }}) => {{
-  const [state, setState] = useState({{}});
-  
-  const handleClick = (e) => {{
+const COMPONENT_NAME = ({ children, className = '', ...props }) => {
+  const [state, setState] = useState({});
+
+  const handleClick = (e) => {
     // Handle click
-    console.log('{component_name} clicked');
-  }};
+    console.log('COMPONENT_NAME clicked');
+  };
 
   return (
-    <div className={`{component_name}-wrapper ${{className}}`} {{...props}}>
-      <div className="{component_name}" onClick={{handleClick}}>
-        {{children}}
+    <div className={`${COMPONENT_NAME}-wrapper ${className}`} {...props}>
+      <div className="COMPONENT_NAME" onClick={handleClick}>
+        {children}
       </div>
     </div>
   );
-}};
+};
 
-export default {component_name};
+export default COMPONENT_NAME;
 """
+                return template.replace('COMPONENT_NAME', component_name).replace('QUERY', query)
             elif styling_lib == "tailwind":
-                return f"""import React, {{ useState }} from 'react';
+                template = """import React, { useState } from 'react';
 
 /**
- * {component_name} Component
- * Description: {query}
+ * COMPONENT_NAME Component
+ * Description: QUERY
  */
-const {component_name} = ({{ children, className = '', ...props }}) => {{
-  const [state, setState] = useState({{}});
-  
-  const handleClick = (e) => {{
+const COMPONENT_NAME = ({ children, className = '', ...props }) => {
+  const [state, setState] = useState({});
+
+  const handleClick = (e) => {
     // Handle click
-    console.log('{component_name} clicked');
-  }};
+    console.log('COMPONENT_NAME clicked');
+  };
 
   return (
-    <div className={`p-4 bg-white rounded-lg shadow-md ${{className}}`} {{...props}}>
-      <div 
+    <div className={`p-4 bg-white rounded-lg shadow-md ${className}`} {...props}>
+      <div
         className="bg-gray-100 p-4 rounded border border-gray-200 hover:bg-gray-50 transition-colors cursor-pointer"
-        onClick={{handleClick}}
+        onClick={handleClick}
       >
-        {{children}}
+        {children}
       </div>
     </div>
   );
-}};
+};
 
-export default {component_name};
+export default COMPONENT_NAME;
 """
+                return template.replace('COMPONENT_NAME', component_name).replace('QUERY', query)
             else:
-                return f"""import React, {{ useState }} from 'react';
+                template = """import React, { useState } from 'react';
 
 /**
- * {component_name} Component
- * Description: {query}
+ * COMPONENT_NAME Component
+ * Description: QUERY
  */
-const {component_name} = ({{ children, className = '', ...props }}) => {{
-  const [state, setState] = useState({{}});
-  
-  const handleClick = (e) => {{
+const COMPONENT_NAME = ({ children, className = '', ...props }) => {
+  const [state, setState] = useState({});
+
+  const handleClick = (e) => {
     // Handle click
-    console.log('{component_name} clicked');
-  }};
+    console.log('COMPONENT_NAME clicked');
+  };
 
   return (
-    <div className={`{component_name}-wrapper ${{className}}`} {{...props}}>
-      <div className="{component_name}" onClick={{handleClick}}>
-        {{children}}
+    <div className={`${COMPONENT_NAME}-wrapper ${className}`} {...props}>
+      <div className="COMPONENT_NAME" onClick={handleClick}>
+        {children}
       </div>
     </div>
   );
-}};
+};
 
-export default {component_name};
+export default COMPONENT_NAME;
 """
+                return template.replace('COMPONENT_NAME', component_name).replace('QUERY', query)
         elif framework == "vue":
-            return f"""<template>
-  <div class="{component_name.toLowerCase()}-wrapper" @click="handleClick">
-    <div class="{component_name.toLowerCase()}">
+            template = """<template>
+  <div class="COMPONENT_NAME_WRAPPER" @click="handleClick">
+    <div class="COMPONENT_NAME">
       <slot />
     </div>
   </div>
 </template>
 
 <script>
-export default {{
-  name: '{component_name}',
-  props: {{
+export default {
+  name: 'COMPONENT_NAME',
+  props: {
     // Define props here
-  }},
-  data() {{
-    return {{
+  },
+  data() {
+    return {
       // Component state
-    }};
-  }},
-  methods: {{
-    handleClick(event) {{
+    };
+  },
+  methods: {
+    handleClick(event) {
       // Handle click
-      console.log('{component_name} clicked');
-    }}
-  }},
-  mounted() {{
+      console.log('COMPONENT_NAME clicked');
+    }
+  },
+  mounted() {
     // Component mounted
-  }}
-}};
+  }
+};
 </script>
 
 <style scoped>
-.{component_name.lower()}-wrapper {{
+.COMPONENT_NAME_WRAPPER {
   /* Add wrapper styles */
-}}
+}
 
-.{component_name.lower()} {{
+.COMPONENT_NAME {
   /* Add component styles */
-}}
+}
 </style>
 """
+            return template.replace('COMPONENT_NAME', component_name.lower()).replace('COMPONENT_NAME_WRAPPER', f"{component_name.lower()}-wrapper")
         else:
             return f"// {component_name} component for {query} using {framework}"
 
@@ -255,122 +259,125 @@ export default {{
         
         if framework == "react":
             if state_manager == "redux":
-                return f"""import React from 'react';
-import {{ useSelector, useDispatch }} from 'react-redux';
-import './{page_name}.css';
+                template = """import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import './PAGE_NAME.css';
 
 /**
- * {page_name} Page
- * Description: {query}
+ * PAGE_NAME Page
+ * Description: QUERY
  */
-const {page_name} = () => {{
+const PAGE_NAME = () => {
   const dispatch = useDispatch();
-  const {page_name.lower()}Data = useSelector(state => state.{page_name.lower()});
+  const PAGEDATA_NAME = useSelector(state => state.PAGEDATA_NAME);
 
   return (
-    <div className="{page_name.toLowerCase()}-page">
+    <div className="page_name-page">
       <header>
-        <h1>{page_name.replace('Page', '')}</h1>
+        <h1>PAGE_TITLE</h1>
       </header>
-      
+
       <main>
-        <p>Welcome to the {page_name.replace('Page', '')} page.</p>
+        <p>Welcome to the PAGE_TITLE page.</p>
         {/* Add page content here */}
       </main>
-      
+
       <footer>
-        <p>&copy; 2023 {page_name.replace('Page', '')}. All rights reserved.</p>
+        <p>&copy; 2023 PAGE_TITLE. All rights reserved.</p>
       </footer>
     </div>
   );
-}};
+};
 
-export default {page_name};
+export default PAGE_NAME;
 """
+                page_title = page_name.replace('Page', '')
+                return template.replace('PAGE_NAME', page_name).replace('QUERY', query).replace('PAGE_TITLE', page_title).replace('PAGEDATA_NAME', f"{page_name.lower()}Data")
             else:
-                return f"""import React, {{ useState, useEffect }} from 'react';
-import './{page_name}.css';
+                template = """import React, { useState, useEffect } from 'react';
+import './PAGE_NAME.css';
 
 /**
- * {page_name} Page
- * Description: {query}
+ * PAGE_NAME Page
+ * Description: QUERY
  */
-const {page_name} = () => {{
+const PAGE_NAME = () => {
   const [data, setData] = useState(null);
 
-  useEffect(() => {{
+  useEffect(() => {
     // Fetch data or perform initialization
-    console.log('Loading {page_name} data...');
-  }}, []);
+    console.log('Loading PAGE_NAME data...');
+  }, []);
 
   return (
-    <div className="{page_name.toLowerCase()}-page">
+    <div className="page_name-page">
       <header>
-        <h1>{page_name.replace('Page', '')}</h1>
+        <h1>PAGE_TITLE</h1>
       </header>
-      
+
       <main>
-        <p>Welcome to the {page_name.replace('Page', '')} page.</p>
+        <p>Welcome to the PAGE_TITLE page.</p>
         {/* Add page content here */}
       </main>
-      
+
       <footer>
-        <p>&copy; 2023 {page_name.replace('Page', '')}. All rights reserved.</p>
+        <p>&copy; 2023 PAGE_TITLE. All rights reserved.</p>
       </footer>
     </div>
   );
-}};
+};
 
-export default {page_name};
+export default PAGE_NAME;
 """
+                page_title = page_name.replace('Page', '')
+                return template.replace('PAGE_NAME', page_name).replace('QUERY', query).replace('PAGE_TITLE', page_title)
         elif framework == "nextjs":
-            return f"""import React, {{ useState, useEffect }} from 'react';
+            template = """import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 
 /**
- * {page_name} Page
- * Description: {query}
+ * PAGE_NAME Page
+ * Description: QUERY
  */
-const {page_name} = () => {{
+const PAGE_NAME = () => {
   const [data, setData] = useState(null);
 
-  useEffect(() => {{
+  useEffect(() => {
     // Fetch data or perform initialization
-    console.log('Loading {page_name} data...');
-  }}, []);
+    console.log('Loading PAGE_NAME data...');
+  }, []);
 
   return (
-    <div className="{page_name.toLowerCase()}-page">
+    <div className="page_name-page">
       <Head>
-        <title>{page_name.replace('Page', '')}</title>
-        <meta name="description" content="{query}" />
+        <title>PAGE_TITLE</title>
+        <meta name="description" content="QUERY" />
       </Head>
-      
+
       <header>
-        <h1>{page_name.replace('Page', '')}</h1>
+        <h1>PAGE_TITLE</h1>
       </header>
-      
+
       <main>
-        <p>Welcome to the {page_name.replace('Page', '')} page.</p>
+        <p>Welcome to the PAGE_TITLE page.</p>
         {/* Add page content here */}
       </main>
-      
+
       <footer>
-        <p>&copy; 2023 {page_name.replace('Page', '')}. All rights reserved.</p>
+        <p>&copy; 2023 PAGE_TITLE. All rights reserved.</p>
       </footer>
     </div>
   );
-}};
-
-export default {page_name};
+};
+export default PAGE_NAME;
 
 // For static generation or server-side rendering
-// export async function getStaticProps() {{
+// export async function getStaticProps() {
 //   // Fetch data for the page
-//   return {{
-//     props: {{}},
-//   }};
-// }}
+//   return {
+//     props: {},
+//   };
+// }
 """
         else:
             return f"// {page_name} page for {query} using {framework}"
@@ -380,69 +387,71 @@ export default {page_name};
         layout_name = params.get("layout_name", "MainLayout")
         
         if framework == "react":
-            return f"""import React from 'react';
+            template = """import React from 'react';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
-import './{layout_name}.css';
+import './LAYOUT_NAME.css';
 
 /**
- * {layout_name} Layout
- * Description: {query}
+ * LAYOUT_NAME Layout
+ * Description: QUERY
  */
-const {layout_name} = ({{ children }}) => {{
+const LAYOUT_NAME = ({ children }) => {
   return (
-    <div className="{layout_name.toLowerCase()}-container">
+    <div className="layout_name-container">
       <Navigation />
-      
-      <main className="{layout_name.toLowerCase()}-main">
-        {{children}}
+
+      <main className="layout_name-main">
+        {children}
       </main>
-      
+
       <Footer />
     </div>
   );
-}};
+};
 
-export default {layout_name};
+export default LAYOUT_NAME;
 """
+            return template.replace('LAYOUT_NAME', layout_name).replace('QUERY', query)
         elif framework == "nextjs":
-            return f"""import React from 'react';
+            template = """import React from 'react';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 
 /**
- * {layout_name} Layout
- * Description: {query}
+ * LAYOUT_NAME Layout
+ * Description: QUERY
  */
-const {layout_name} = ({{ children }}) => {{
+const LAYOUT_NAME = ({ children }) => {
   return (
-    <div className="{layout_name.toLowerCase()}-container">
+    <div className="layout_name-container">
       <Navigation />
-      
-      <main className="{layout_name.toLowerCase()}-main">
-        {{children}}
+
+      <main className="layout_name-main">
+        {children}
       </main>
-      
+
       <Footer />
     </div>
   );
-}};
+};
 
-export default {layout_name};
+export default LAYOUT_NAME;
 
 // If using App Router in Next.js 13+
-// export default function RootLayout({{ children }}) {{
+// export default function RootLayout({ children }) {
 //   return (
 //     <html lang="en">
 //       <body>
-//         <{layout_name}>
-//           {{children}}
-//         </{layout_name}>
+//         <LAYOUT_NAME>
+//           {children}
+//         </LAYOUT_NAME>
 //       </body>
 //     </html>
 //   );
-// }}
+// }
 """
+            return template.replace('LAYOUT_NAME', layout_name).replace('QUERY', query)
         else:
             return f"// {layout_name} layout for {query} using {framework}"
 
@@ -451,47 +460,48 @@ export default {layout_name};
         hook_name = params.get("hook_name", "useCustomHook")
         
         if framework == "react":
-            return f"""import {{ useState, useEffect, useCallback }} from 'react';
+            template = """import { useState, useEffect, useCallback } from 'react';
 
 /**
- * Custom Hook: {hook_name}
- * Description: {query}
+ * Custom Hook: HOOK_NAME
+ * Description: QUERY
  */
-const {hook_name} = (initialValue = null) => {{
+const HOOK_NAME = (initialValue = null) => {
   const [value, setValue] = useState(initialValue);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const fetchData = useCallback(async () => {{
+  const fetchData = useCallback(async () => {
     setLoading(true);
     setError(null);
-    
-    try {{
+
+    try {
       // Perform async operation
       const result = await fetch('/api/data'); // Replace with actual API call
       const data = await result.json();
       setValue(data);
-    }} catch (err) {{
+    } catch (err) {
       setError(err.message);
-    }} finally {{
+    } finally {
       setLoading(false);
-    }}
-  }}, []);
+    }
+  }, []);
 
-  const updateValue = useCallback((newValue) => {{
+  const updateValue = useCallback((newValue) => {
     setValue(newValue);
-  }}, []);
+  }, []);
 
-  useEffect(() => {{
+  useEffect(() => {
     // Perform side effects
     fetchData();
-  }}, []);
+  }, []);
 
-  return {{ value, loading, error, updateValue, fetchData }};
-}};
+  return { value, loading, error, updateValue, fetchData };
+};
 
-export default {hook_name};
+export default HOOK_NAME;
 """
+            return template.replace('HOOK_NAME', hook_name).replace('QUERY', query)
         else:
             return f"// {hook_name} hook for {query} using {framework}"
 
@@ -500,28 +510,30 @@ export default {hook_name};
         store_name = params.get("store_name", "appStore")
         
         if state_manager == "redux":
-            return f"""// Redux Store for {query}
-import {{ configureStore }} from '@reduxjs/toolkit';
-import {store_name.lower()}Reducer from './{store_name.lower()}Slice';
+            template = """// Redux Store for QUERY
+import { configureStore } from '@reduxjs/toolkit';
+import STORE_NAME_REDUCER from './STORE_NAMESLICE';
 
-export const store = configureStore({{
-  reducer: {{
-    {store_name.lower()}: {store_name.lower()}Reducer,
+export const store = configureStore({
+  reducer: {
+    STORE_NAMEDATA: STORE_NAME_REDUCER,
     // Add other reducers here
-  }},
-}});
+  },
+});
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>;
-// Inferred type: {{posts: PostsState, comments: CommentsState, users: UsersState}}
+// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
 export type AppDispatch = typeof store.dispatch;
 """
+            store_lower = store_name.lower()
+            return template.replace('QUERY', query).replace('STORE_NAME', store_name).replace('STORE_NAMESLICE', f"{store_lower}Slice").replace('STORE_NAME_REDUCER', f"{store_lower}Reducer").replace('STORE_NAMEDATA', store_lower)
         elif state_manager == "zustand":
-            return f"""// Zustand Store for {query}
-import {{ create }} from 'zustand';
-import {{ persist, devtools }} from 'zustand/middleware';
+            template = """// Zustand Store for QUERY
+import { create } from 'zustand';
+import { persist, devtools } from 'zustand/middleware';
 
-const use{store_name.capitalize()} = create(
+const useSTORE_NAME_CAPITALIZE = create(
   devtools(
     persist(
       (set, get) => ({
@@ -531,42 +543,43 @@ const use{store_name.capitalize()} = create(
         error: null,
 
         // Actions
-        setData: (newData) => set({{ data: newData }}),
-        setLoading: (isLoading) => set({{ loading: isLoading }}),
-        setError: (error) => set({{ error }}),
+        setData: (newData) => set({ data: newData }),
+        setLoading: (isLoading) => set({ loading: isLoading }),
+        setError: (error) => set({ error }),
 
         // Async actions
-        fetchData: async () => {{
-          set({{ loading: true, error: null }});
-          try {{
+        fetchData: async () => {
+          set({ loading: true, error: null });
+          try {
             // Replace with actual API call
             const response = await fetch('/api/data');
             const data = await response.json();
-            set({{ data, loading: false }});
-          }} catch (error) {{
-            set({{ error: error.message, loading: false }});
-          }}
-        }},
+            set({ data, loading: false });
+          } catch (error) {
+            set({ error: error.message, loading: false });
+          }
+        },
       }),
-      {{
-        name: '{store_name.lower()}-storage', // Unique name for localStorage
-      }}
+      {
+        name: 'STORE_NAME_LOWER-storage', // Unique name for localStorage
+      }
     )
   )
 );
 
-export default use{store_name.capitalize()};
+export default useSTORE_NAME_CAPITALIZE;
 """
+            return template.replace('QUERY', query).replace('STORE_NAME_CAPITALIZE', store_name.capitalize()).replace('STORE_NAME_LOWER', store_name.lower())
         elif state_manager == "context_api":
-            return f"""// Context API Store for {query}
-import React, {{ createContext, useContext, useReducer }} from 'react';
+            template = """// Context API Store for QUERY
+import React, { createContext, useContext, useReducer } from 'react';
 
 // Initial state
-const initialState = {{
+const initialState = {
   data: [],
   loading: false,
   error: null,
-}};
+};
 
 // Action types
 const SET_DATA = 'SET_DATA';
@@ -577,66 +590,69 @@ const FETCH_DATA_SUCCESS = 'FETCH_DATA_SUCCESS';
 const FETCH_DATA_ERROR = 'FETCH_DATA_ERROR';
 
 // Reducer
-const {store_name.lower()}Reducer = (state, action) => {{
-  switch (action.type) {{
+const STORE_NAME_REDUCER = (state, action) => {
+  switch (action.type) {
     case SET_DATA:
-      return {{ ...state, data: action.payload }};
+      return { ...state, data: action.payload };
     case SET_LOADING:
-      return {{ ...state, loading: action.payload }};
+      return { ...state, loading: action.payload };
     case SET_ERROR:
-      return {{ ...state, error: action.payload }};
+      return { ...state, error: action.payload };
     case FETCH_DATA_START:
-      return {{ ...state, loading: true, error: null }};
+      return { ...state, loading: true, error: null };
     case FETCH_DATA_SUCCESS:
-      return {{ ...state, loading: false, data: action.payload, error: null }};
+      return { ...state, loading: false, data: action.payload, error: null };
     case FETCH_DATA_ERROR:
-      return {{ ...state, loading: false, error: action.payload }};
+      return { ...state, loading: false, error: action.payload };
     default:
       return state;
-  }}
-}};
+  }
+};
 
 // Context
-const {store_name.capitalize()}Context = createContext();
+const STORE_NAME_CONTEXT = createContext();
 
 // Provider
-export const {store_name.capitalize()}Provider = ({{ children }}) => {{
-  const [state, dispatch] = useReducer({store_name.lower()}Reducer, initialState);
+export const STORE_NAME_PROVIDER = ({ children }) => {
+  const [state, dispatch] = useReducer(STORE_NAME_REDUCER, initialState);
 
-  const value = {{
+  const value = {
     ...state,
-    setData: (data) => dispatch({{ type: SET_DATA, payload: data }}),
-    setLoading: (loading) => dispatch({{ type: SET_LOADING, payload: loading }}),
-    setError: (error) => dispatch({{ type: SET_ERROR, payload: error }}),
-    fetchData: async () => {{
-      dispatch({{ type: FETCH_DATA_START }});
-      try {{
+    setData: (data) => dispatch({ type: SET_DATA, payload: data }),
+    setLoading: (loading) => dispatch({ type: SET_LOADING, payload: loading }),
+    setError: (error) => dispatch({ type: SET_ERROR, payload: error }),
+    fetchData: async () => {
+      dispatch({ type: FETCH_DATA_START });
+      try {
         // Replace with actual API call
         const response = await fetch('/api/data');
         const data = await response.json();
-        dispatch({{ type: FETCH_DATA_SUCCESS, payload: data }});
-      }} catch (error) {{
-        dispatch({{ type: FETCH_DATA_ERROR, payload: error.message }});
-      }}
-    }}
-  }};
+        dispatch({ type: FETCH_DATA_SUCCESS, payload: data });
+      } catch (error) {
+        dispatch({ type: FETCH_DATA_ERROR, payload: error.message });
+      }
+    }
+  };
 
   return (
-    <{store_name.capitalize()}Context.Provider value={{value}}>
-      {{children}}
-    </{store_name.capitalize()}Context.Provider>
+    <STORE_NAME_CONTEXT.Provider value={value}>
+      {children}
+    </STORE_NAME_CONTEXT.Provider>
   );
-}};
+};
 
 // Custom hook to use the context
-export const use{store_name.capitalize()} = () => {{
-  const context = useContext({store_name.capitalize()}Context);
-  if (!context) {{
-    throw new Error('use{store_name.capitalize()} must be used within a {store_name.capitalize()}Provider');
-  }}
+export const useSTORE_NAME_CAPITALIZE = () => {
+  const context = useContext(STORE_NAME_CONTEXT);
+  if (!context) {
+    throw new Error('useSTORE_NAME_CAPITALIZE must be used within a STORE_NAME_PROVIDER');
+  }
   return context;
-}};
+};
 """
+            store_lower = store_name.lower()
+            store_capitalize = store_name.capitalize()
+            return template.replace('QUERY', query).replace('STORE_NAME_REDUCER', f"{store_lower}Reducer").replace('STORE_NAME_CONTEXT', f"{store_capitalize}Context").replace('STORE_NAME_PROVIDER', f"{store_capitalize}Provider").replace('STORE_NAME_CAPITALIZE', store_capitalize)
         else:
             return f"// Store for {query} using {state_manager}"
 
